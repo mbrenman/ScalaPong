@@ -1,6 +1,6 @@
 class Board {
-	val height = 7
-	val width  = 10
+	val height = 15
+	val width  = 25
 
 	val padLeft = new Paddle(0, height)
 	val padRight = new Paddle(width - 1, height)
@@ -12,15 +12,35 @@ class Board {
 
 	def show() {
 		for (y <- 0 until height) {
+			print(if (y == 0 || y == height - 1) "|-" else "| ")
 			for (x <- 0 until width) {
-				if (ball.intersect(y, x)) {
-					print('o')
-				} else if (padLeft.intersect(y, x) || padRight.intersect(y, x)) {
+				if (padLeft.intersect(y, x)) {
+					print('[')
+					if (ball.intersect(y, x)) {
+						print('O')
+					} else {
+						print(']')
+					}
+				} else if (padRight.intersect(y, x)) {
+					if (ball.intersect(y, x)) {
+						print('O')
+					} else {
+						print('[')
+					}
+					print(']')
+				} else if (ball.intersect(y, x)) {
+					print("O" + (if (y == 0 || y == height - 1) "-" else " "))
+				} else {
+					print(if (y == 0 || y == height - 1) "--" else "  ")
+				}
+
+				//top / bottom walls
+				print(if (y == 0 || y == height - 1) "-" else " ")
+				if (x == width - 1) {
 					print('|')
 				} else {
-					print('.')
+					print(if (y == 0 || y == height - 1) "-" else " ")
 				}
-				print("  ")
 			}
 			println()
 		}

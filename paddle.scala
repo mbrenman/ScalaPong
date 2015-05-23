@@ -1,5 +1,5 @@
 class Paddle(val xPos: Int, val boardHeight: Int) {
-	val length = 2;
+	val length = 4;
 	var top = 1;
 
 	def intersect(yVal: Int, xVal: Int): Boolean = {
